@@ -45,3 +45,6 @@ ans = finalNums.reduce(
     }, 0
         );
 console.log(ans)
+
+// part 2
+'https://stackoverflow.com/questions/37365512/count-the-number-of-times-a-same-value-appears-in-a-javascript-array'
