@@ -46,5 +46,37 @@ ans = finalNums.reduce(
         );
 console.log(ans)
 
-// part 2
-'https://stackoverflow.com/questions/37365512/count-the-number-of-times-a-same-value-appears-in-a-javascript-array'
+/**
+ * Part 2
+ * How often appears each value in left in right
+ * Count how many times the left value appears in right. 
+ * Mulitply left value with the numAppearanceInRight
+ * Push to array
+ * Sum each value in that array
+ */
+// 'https://stackoverflow.com/questions/37365512/count-the-number-of-times-a-same-value-appears-in-a-javascript-array'
+
+function getOccurrence(array, value) {
+    return array.filter((v) => (v === value)).length;
+}
+
+
+preRes = [];
+debugger;
+left.forEach(
+    (num) => {
+        let numAppearanceInRight = getOccurence(right, num);
+        let res = num * numAppearanceInRight
+        preRes.push(res);
+    }
+)
+
+preRes.pop()
+
+var ans2 = preRes.reduce(
+    (accumulator, currentValue) => {
+        return accumulator + currentValue
+    },0
+);
+
+console.log(ans2)
