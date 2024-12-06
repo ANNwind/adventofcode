@@ -37,7 +37,7 @@ function checkArrayOrder(arr) {
 
     return isIncreasing || isDecreasing;
 }
-debugger;
+// debugger;
 inputRowNums.forEach(
     (row) => 
         {
@@ -45,5 +45,12 @@ inputRowNums.forEach(
         potentRows.push(row)
     }  
 })
+console.log(potentRows.length)
+ansArr = []
+potentRows.forEach((row) => {
+    if (row.some(num => num < 1 || num > 3)) {
+        ansArr.push(row)
+    }
+})
 
-console.log(potentRows)
+console.log(ansArr.length)
