@@ -15,4 +15,24 @@ inputRows.forEach(
         inputRowNums.push(rowNumArr);
     })
 
-console.log(inputRowNums)
+// debugger;
+
+var potentRows = [];
+
+function smallerOrGreater(elt, idx, arr) { 
+      var prev = arr[idx - 1];
+      return !idx || elt < prev || elt > prev;
+}
+debugger;
+inputRowNums.forEach(
+    (row) => 
+        {
+    if(row.every(smallerOrGreater)) {
+        potentRows.push(row)
+       
+    }
+            
+
+})
+
+console.log(potentRows)
