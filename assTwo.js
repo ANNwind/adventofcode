@@ -19,20 +19,31 @@ inputRows.forEach(
 
 var potentRows = [];
 
-function smallerOrGreater(elt, idx, arr) { 
-      var prev = arr[idx - 1];
-      return !idx || elt < prev || elt > prev;
+function checkArrayOrder(arr) {
+    let isIncreasing = true;
+    let isDecreasing = true;
+
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] < arr[i + 1]) {
+            isDecreasing = false;
+        } else if (arr[i] > arr[i + 1]) {
+            isIncreasing = false;
+        } else {
+            isIncreasing = false;
+            isDecreasing = false;
+            break;
+        }
+    }
+
+    return isIncreasing || isDecreasing;
 }
 debugger;
 inputRowNums.forEach(
     (row) => 
         {
-    if(row.every(smallerOrGreater)) {
+    if(checkArrayOrder(row)) {
         potentRows.push(row)
-       
-    }
-            
-
+    }  
 })
 
 console.log(potentRows)
