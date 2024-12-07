@@ -58,4 +58,36 @@ inputRowNums.forEach(
     } 
 )
 
-console.log("Num potentrows: ", decreasing.length + increasing.length)
+potentRows = [];
+
+decreasing.forEach((row) => {
+    potentRows.push(row)
+})
+increasing.forEach((row) => {
+    potentRows.push(row)
+})
+
+console.log("Length potentRowsArray :", potentRows.length)
+
+function checkDiff(arr) {
+    let validRow = true
+    for (i=0; i < arr.length; i++) {
+        diff = Math.abs(arr[i] - arr[i+1])
+        if (diff < 1 || diff > 3) {
+            validRow = false
+            break
+        }
+        return validRow
+    }
+}
+
+validRows = [];
+
+potentRows.forEach(
+    (row) => {
+        if (checkDiff(row)) {
+            validRows.push(row)
+        }
+    })
+
+console.log("Number of validRows", validRows.length)
