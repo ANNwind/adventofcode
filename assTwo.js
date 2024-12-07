@@ -15,7 +15,7 @@ inputRows.forEach(
         inputRowNums.push(rowNumArr);
     })
 
-// debugger;
+console.log("Total number of rows: ", inputRowNums.length);
 
 var potentRows = [];
 
@@ -24,7 +24,12 @@ function checkArrayOrder(arr) {
     let isDecreasing = true;
 
     for (let i = 0; i < arr.length - 1; i++) {
-        if (arr[i] < arr[i + 1]) {
+        let diff = Math.abs(arr[i] - arr[i + 1]);
+        if (diff < 1 || diff > 3) {
+            isIncreasing = false;
+            isDecreasing = false;
+            break;
+        } else if (arr[i] < arr[i + 1]) {
             isDecreasing = false;
         } else if (arr[i] > arr[i + 1]) {
             isIncreasing = false;
@@ -45,12 +50,4 @@ inputRowNums.forEach(
         potentRows.push(row)
     }  
 })
-console.log(potentRows.length)
-ansArr = []
-potentRows.forEach((row) => {
-    if (row.some(num => num < 1 || num > 3)) {
-        ansArr.push(row)
-    }
-})
-
-console.log(ansArr.length)
+console.log("Rows either decreasing or increwasing :", potentRows.length)
