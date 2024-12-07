@@ -3,6 +3,11 @@
  * 
  * Check row by all ascending or all descending
  * If this is true check if Math.abs(first - second) is within 3
+ * 
+ * Lets do different:
+ * Add all decreasing rows to an array
+ * Add all increasing rows to an arry
+ * Add all rows from the increase and decrease array that diff min 1 and max 3 to final array
  */
 
 var inputRows = document.querySelector("body > pre").innerText.split("\n");
