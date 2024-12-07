@@ -22,37 +22,40 @@ inputRows.forEach(
 
 console.log("Total number of rows: ", inputRowNums.length);
 
-var potentRows = [];
-
-function checkArrayOrder(arr) {
-    let isIncreasing = true;
-    let isDecreasing = true;
-
-    for (let i = 0; i < arr.length - 1; i++) {
-        let diff = Math.abs(arr[i] - arr[i + 1]);
-        if (diff < 1 || diff > 3) {
-            isIncreasing = false;
-            isDecreasing = false;
-            break;
-        } else if (arr[i] < arr[i + 1]) {
-            isDecreasing = false;
-        } else if (arr[i] > arr[i + 1]) {
-            isIncreasing = false;
-        } else {
-            isIncreasing = false;
-            isDecreasing = false;
-            break;
+function checkIncrease(arr) {
+    let increase = true;
+    
+    for (i=0; i < arr.length; i++) {
+        if (arr[i] > arr[i+1]) {
+            increase = false;
         }
     }
-
-    return isIncreasing || isDecreasing;
+    return increase
 }
-// debugger;
+
+function checkDecrease(arr){
+    let decrease = true;
+
+    for (i=0; i < arr.length; i++) {
+        if (arr[i] < arr[i+1]) {
+            decrease = false;
+        }
+    }
+    return decrease
+}
+
+decreasing = [];
+increasing = [];
+
 inputRowNums.forEach(
-    (row) => 
-        {
-    if(checkArrayOrder(row)) {
-        potentRows.push(row)
-    }  
-})
-console.log("Rows either decreasing or increwasing :", potentRows.length)
+    (row) => {
+        if (checkIncrease(row)) {
+            increasing.push(row);
+        } else if (checkDecrease(row)) {
+            decreasing.push(row)
+        }
+            
+    } 
+)
+
+console.log("Num potentrows: ", decreasing.length + increasing.length)
