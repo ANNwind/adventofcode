@@ -9,17 +9,19 @@
  * Add all increasing rows to an arry
  * Add all rows from the increase and decrease array that diff min 1 and max 3 to final array
  */
-
+debugger;
 var inputRows = document.querySelector("body > pre").innerText.split("\n");
 var inputRowNums = [];
 
 inputRows.forEach(
     (rowStr) => {
         var rowStrArr = rowStr.split(" ");
-        var rowNumArr = rowStrArr.map(Number)
+        var validStr = rowStrArr.filter((str) => {if (/^\d+$/.test(str.trim())) {return str}})
+        var rowNumArr = validStr.map(Number)
         inputRowNums.push(rowNumArr);
     })
-
+inputRowNums.pop()
+console.log(inputRowNums)
 console.log("Total number of rows: ", inputRowNums.length);
 
 function checkIncrease(arr) {
@@ -76,24 +78,23 @@ function checkDiff(arr) {
         diff = Math.abs(arr[i] - arr[i+1])
         if (diff < 1 || diff > 3) {
             validRow = false
-            return validRow
-        } else {
-            continue
-        }
-        return validRow
+        
+        } 
+        
     }
+    return validRow
 }
 
-test1 = [1,2,3]
-console.log("valid row :", checkDiff(test1))
+// test1 = [1,2,3]
+// console.log("valid row :", checkDiff(test1))
 
-// validRows = [];
+validRows = [];
 
-// potentRows.forEach(
-//     (row) => {
-//         if (checkDiff(row)) {
-//             validRows.push(row)
-//         }
-//     })
+potentRows.forEach(
+    (row) => {
+        if (checkDiff(row)) {
+            validRows.push(row)
+        }
+    })
 
-// console.log("Number of validRows", validRows.length)
+console.log("Number of validRows", validRows.length)
