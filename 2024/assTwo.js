@@ -26,7 +26,7 @@ function checkIncrease(arr) {
     let increase = true;
     
     for (i=0; i < arr.length; i++) {
-        if (arr[i] > arr[i+1]) {
+        if (arr[i] >= arr[i+1]) {
             increase = false;
         }
     }
@@ -37,7 +37,7 @@ function checkDecrease(arr){
     let decrease = true;
 
     for (i=0; i < arr.length; i++) {
-        if (arr[i] < arr[i+1]) {
+        if (arr[i] <= arr[i+1]) {
             decrease = false;
         }
     }
@@ -72,22 +72,28 @@ console.log("Length potentRowsArray :", potentRows.length)
 function checkDiff(arr) {
     let validRow = true
     for (i=0; i < arr.length; i++) {
+        // debugger;
         diff = Math.abs(arr[i] - arr[i+1])
         if (diff < 1 || diff > 3) {
             validRow = false
-            break
+            return validRow
+        } else {
+            continue
         }
         return validRow
     }
 }
 
-validRows = [];
+test1 = [1,2,3]
+console.log("valid row :", checkDiff(test1))
 
-potentRows.forEach(
-    (row) => {
-        if (checkDiff(row)) {
-            validRows.push(row)
-        }
-    })
+// validRows = [];
 
-console.log("Number of validRows", validRows.length)
+// potentRows.forEach(
+//     (row) => {
+//         if (checkDiff(row)) {
+//             validRows.push(row)
+//         }
+//     })
+
+// console.log("Number of validRows", validRows.length)
