@@ -9,7 +9,6 @@
  * Add all increasing rows to an arry
  * Add all rows from the increase and decrease array that diff min 1 and max 3 to final array
  */
-debugger;
 var inputRows = document.querySelector("body > pre").innerText.split("\n");
 var inputRowNums = [];
 
@@ -21,80 +20,97 @@ inputRows.forEach(
         inputRowNums.push(rowNumArr);
     })
 inputRowNums.pop()
-console.log(inputRowNums)
+
 console.log("Total number of rows: ", inputRowNums.length);
 
-function checkIncrease(arr) {
-    let increase = true;
-    
-    for (i=0; i < arr.length; i++) {
-        if (arr[i] >= arr[i+1]) {
-            increase = false;
-        }
-    }
-    return increase
-}
+function checkIfValid(arr) {
+    let isIncreasing = true;
+    let isDecreasing = true;
 
-function checkDecrease(arr){
-    let decrease = true;
-
-    for (i=0; i < arr.length; i++) {
-        if (arr[i] <= arr[i+1]) {
-            decrease = false;
-        }
-    }
-    return decrease
-}
-
-decreasing = [];
-increasing = [];
-
-inputRowNums.forEach(
-    (row) => {
-        if (checkIncrease(row)) {
-            increasing.push(row);
-        } else if (checkDecrease(row)) {
-            decreasing.push(row)
-        }
-            
-    } 
-)
-
-potentRows = [];
-
-decreasing.forEach((row) => {
-    potentRows.push(row)
-})
-increasing.forEach((row) => {
-    potentRows.push(row)
-})
-
-console.log("Length potentRowsArray :", potentRows.length)
-
-function checkDiff(arr) {
-    let validRow = true
-    for (i=0; i < arr.length; i++) {
-        // debugger;
-        diff = Math.abs(arr[i] - arr[i+1])
+    for (let i = 0; i < arr.length - 1; i++) {
+        let diff = Math.abs(arr[i] - arr[i + 1]);
         if (diff < 1 || diff > 3) {
-            validRow = false
-        
-        } 
-        
+            isIncreasing = false;
+            isDecreasing = false;
+            break;
+        } else if (arr[i] < arr[i + 1]) {
+            isDecreasing = false;
+        } else if (arr[i] > arr[i + 1]) {
+            isIncreasing = false;
+        }
     }
-    return validRow
+
+    return isIncreasing || isDecreasing;
+    
 }
 
-// test1 = [1,2,3]
-// console.log("valid row :", checkDiff(test1))
+validArrs = []
 
-validRows = [];
+inputRowNums.forEach((arr) => {if (checkIfValid(arr)) {
+    validArrs.push(arr)
+}} )
 
-potentRows.forEach(
-    (row) => {
-        if (checkDiff(row)) {
-            validRows.push(row)
-        }
+console.log(validArrs.length)
+
+// Part 2
+
+var inputRows = document.querySelector("body > pre").innerText.split("\n");
+var inputRowNums = [];
+
+inputRows.forEach(
+    (rowStr) => {
+        var rowStrArr = rowStr.split(" ");
+        var validStr = rowStrArr.filter((str) => {if (/^\d+$/.test(str.trim())) {return str}})
+        var rowNumArr = validStr.map(Number)
+        inputRowNums.push(rowNumArr);
     })
+inputRowNums.pop()
 
-console.log("Number of validRows", validRows.length)
+console.log("Total number of rows: ", inputRowNums.length);
+
+function checkIfValid(arr) {
+    function isValidSequence(sequence) {
+        let isIncreasing = true;
+        let isDecreasing = true;
+
+        for (let i = 0; i < sequence.length - 1; i++) {
+            let diff = Math.abs(sequence[i] - sequence[i + 1]);
+            if (diff < 1 || diff > 3) {
+                isIncreasing = false;
+                isDecreasing = false;
+                break;
+            } else if (sequence[i] < sequence[i + 1]) {
+                isDecreasing = false;
+            } else if (sequence[i] > sequence[i + 1]) {
+                isIncreasing = false;
+            }
+        }
+        return isIncreasing || isDecreasing;
+    }
+
+    if (isValidSequence(arr)) {
+        return true; 
+    } else if (arr.length <= 1) {
+        return false; 
+    } else {
+        for (let j = 0; j < arr.length; j++) {
+            let newArr = arr.slice(0, j).concat(arr.slice(j + 1));
+            if (isValidSequence(newArr)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+validArrs = [];
+// secondChange = [];
+
+inputRowNums.forEach((row) => {
+    if(checkIfValid(row)) {
+        validArrs.push(row)
+    }
+})
+
+console.log(validArrs.length)
+// console.log(secondChange.length)
