@@ -13,3 +13,15 @@ validMuls.forEach((mul) => {
 exeCutedMuls.reduce((acc, curr) => {return acc + curr},0)
 
 // part 2
+
+validMuls.split(/(do\(.*?\)|don't\(.*?\))/g);
+var keepOnRocking = true
+
+while (keepOnRocking) { // niet nodig?
+    // loop door array
+    // check of i !don't() is
+    // function die exeCuteMul aanroep en ook wegschrijft naar array
+    // else als i don't() is, continue totdat i do() is
+    // // function die exeCuteMul aanroep en ook wegschrijft naar array
+
+}
