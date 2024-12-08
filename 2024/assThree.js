@@ -14,8 +14,17 @@ exeCutedMuls.reduce((acc, curr) => {return acc + curr},0)
 
 // part 2
 
-validMuls.split(/(do\(.*?\)|don't\(.*?\))/g);
-var keepOnRocking = true
+var newInput = input.split(/(do\(.*?\)|don't\(.*?\))/g);
+// var keepOnRocking = true
+
+for (i=0; i < newInput; i++) {
+    if (i !== "don't()") {
+        console.log(i)
+    } else if (i === "don't()"){
+        continue
+    }
+
+}
 
 while (keepOnRocking) { // niet nodig?
     // loop door array
