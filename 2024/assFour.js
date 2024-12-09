@@ -8,7 +8,7 @@
  */
 
 var input = document.querySelector("body > pre").innerText.split("\n");
-var input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n"); // testdata
+var input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
 var numCols = input[0].length;
 var numRows = input.length;
 // debugger;
@@ -29,6 +29,7 @@ function findBoth(row) {
 
 function iterRow(input, func){
     var rowRes = [];
+    var usedRows = [];
     var colRes = [];
     var allColls = [];
     var col = [];
@@ -36,19 +37,21 @@ function iterRow(input, func){
     for(colNum = 0; colNum < numCols + 1; colNum++){
         if(col.length === numRows) {
             var cleanedColArray = col.filter(function( element ) {return element !== undefined;});
-            debugger;
             var resCol = cleanedColArray.join("")
             allColls.push(resCol)
             col = []; // empty col
         } 
         for (rowNum = 0; rowNum < numRows; rowNum++) {
-            rowRes.push(func(input[rowNum])) // findBoth
+            if (usedRows.length !== numRows -1) {
+                usedRows.push(input[rowNum])
+                // rowRes.push(func(input[rowNum])) // findBoth maybe doe this when finished?    
+            }
             col.push(input[rowNum][colNum]);
         }
     }
         
     res = [];
-    return {row:rowRes, col:allColls}
+    return {row:usedRows, col:allColls}
 }
 
 iterRow(input, findBoth)
