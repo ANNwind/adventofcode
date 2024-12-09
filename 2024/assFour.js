@@ -8,9 +8,10 @@
  */
 
 var input = document.querySelector("body > pre").innerText.split("\n");
+var input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n"); // testdata
 var numCols = input[0].length;
 var numRows = input.length;
-
+// debugger;
 function reverse(s){
     return s.split("").reverse().join("");
 }
@@ -27,13 +28,17 @@ function findBoth(row) {
 }
 
 function iterRow(input, func){
-    rowRes = [];
-    colRes = [];
-    allColls = [];
+    var rowRes = [];
+    var colRes = [];
+    var allColls = [];
+    var col = [];
 
-    for(colNum = 0; colNum < numCols; colNum++){
-        if(typeof col !== 'undefined' && col.length === numCols) {
-            allColls.push(col)
+    for(colNum = 0; colNum < numCols + 1; colNum++){
+        if(col.length === numRows) {
+            var cleanedColArray = col.filter(function( element ) {return element !== undefined;});
+            debugger;
+            var resCol = cleanedColArray.join("")
+            allColls.push(resCol)
             col = []; // empty col
         } 
         for (rowNum = 0; rowNum < numRows; rowNum++) {
