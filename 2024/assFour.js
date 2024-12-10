@@ -110,4 +110,4 @@ allVariations.forEach(
         }
 )
 
-console.log(answerArr.flat().length)
+console.log(answerArr.flat().flat().length)
