@@ -103,30 +103,34 @@ process2DArray(input)
 
 // var input = document.querySelector("body > pre").innerText.split("\n");
 // debugger;
-input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
+input = document.querySelector("body > main > article:nth-child(1) > pre:nth-child(8) > code").innerText.split("\n");
 input.pop()
 
 input = input.map((rowStr) => rowStr.split(""))
 
 function checkAroundMe(i,j){
-    var ltr = false
-    var rtl = false
-
-    // code here
+    debugger;
+    // var yesSir = false
+    test1 = input[i-1][j-1] + 'A' + input[i+1][j+1] // this is good
+    test2 = input[i+1][j-1] + 'A' + input[i-1][j+1]
+    var ltr = ('MAS' === input[i-1][j-1] + 'A' + input[i+1][j+1]) ? true : false; // this is just 1 diag which should be checked both ways
+    var rtl = ('SAM' === input[i+1][j-1] + 'A' + input[i-1][j+1]) ? true : false;
 
     return ltr && rtl
 }
 
 count = 0
 for (i=0; i < input.length; i++) {
-    for (j=0; i.length; j++) {
+    for (j=0; j < i; j++) {
         if (input[i][j] !== 'A') {
-            return
+            continue
         } else {
             if(checkAroundMe(i,j)){
-                return count += 1
+                count += 1
             } 
         }
 
     }
 }
+
+console.log(count)
