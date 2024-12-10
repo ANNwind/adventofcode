@@ -10,6 +10,7 @@
 // We dun't anders:
 
 var input = document.querySelector("body > pre").innerText.split("\n");
+// debugger;
 // input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
 input.pop()
 
@@ -19,27 +20,24 @@ reversedInput = input.reverse()
 function iterateColumns(twoDArray) {
     const rows = twoDArray.length;
     const columns = twoDArray[0].length;
-    let output = []; // fix this
+    let output = [];
 
     for (let col = 0; col < columns; col++) {
         let items = [];
         for (let row = 0; row < rows; row++) {
             items.push(twoDArray[row][col]);
         }
-        output.push(items)
+        output.push(items);
     }
 
-    return output
+    return output;
 }
-
 
 function loopDiagonally(twoDArray) {
     const length = twoDArray.length;
     const diagonalLines = (length + length) - 1;
     let itemsInDiagonal = 0;
     const midPoint = Math.floor(diagonalLines / 2) + 1;
-    // let column = [];
-    let outputStr = ''; 
     let output = [];
 
     for (let i = 1; i <= diagonalLines; i++) {
@@ -62,52 +60,41 @@ function loopDiagonally(twoDArray) {
             }
         }
 
-        output.push(items)
-
+        output.push(items);
     }
 
     return output;
 }
 
-function reverse(s){
-    return s.split("").reverse().join("");
+function reverse(row) {
+    return row.split("").reverse().join("");
 }
 
-function findXmas(s){
-    return s.match(/(XMAS)/g) // Do I need brackets?
+function countXmasOccurrences(row) {
+    const matchesLTR = (row.match(/XMAS/g) || []).length;
+    const matchesRTL = (reverse(row).match(/XMAS/g) || []).length;
+    return matchesLTR + matchesRTL;
 }
 
-function findAllXmas(rowArr) {
-    var row = rowArr.join("");
-    var ltr = findXmas(row);
-    var rtl = findXmas(reverse(row));
-    var occurs = [ltr, rtl];
-    var output = occurs.filter((item) => item !== null)
-    return output
+function process2DArray(twoDArray) {
+    let count = 0;
+
+    // Rows
+    count += twoDArray.reduce((acc, row) => acc + countXmasOccurrences(row.join("")), 0);
+
+    // Columns
+    const columns = iterateColumns(twoDArray);
+    count += columns.reduce((acc, col) => acc + countXmasOccurrences(col.join("")), 0);
+
+    // Diagonals (Top-Left to Bottom-Right)
+    const diagonals = loopDiagonally(twoDArray);
+    count += diagonals.reduce((acc, diag) => acc + countXmasOccurrences(diag.join("")), 0);
+
+    // Diagonals (Bottom-Left to Top-Right)
+    const reversedDiagonals = loopDiagonally(twoDArray.reverse());
+    count += reversedDiagonals.reduce((acc, diag) => acc + countXmasOccurrences(diag.join("")), 0);
+
+    return count;
 }
 
-var allVariations = [];
-
-input.forEach((row) => {allVariations.push(row)}); 
-
-allColumnVariations = iterateColumns(input);
-allColumnVariations.forEach((row) => {allVariations.push(row)});
-
-diagonalVariations = loopDiagonally(input);
-diagonalVariations.forEach((row) => {allVariations.push(row)});
-
-reversedDiagonalVariations = loopDiagonally(reversedInput)
-reversedDiagonalVariations.forEach((row) => {allVariations.push(row)});
-
-var answerArr = [];
-// debugger;
-allVariations.forEach(
-    (row) => {
-        // debugger;
-        var res = findAllXmas(row);
-        if (res.length > 0) {
-            answerArr.push(res)}
-        }
-)
-
-console.log(answerArr.flat().flat().length)
+process2DArray(input)
