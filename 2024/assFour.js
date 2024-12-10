@@ -10,21 +10,11 @@
 // We dun't anders:
 
 var input = document.querySelector("body > pre").innerText.split("\n");
-input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
+// input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
 input.pop()
 
 input = input.map((rowStr) => rowStr.split(""))
 reversedInput = input.reverse()
-
-// Nonsense to use this, just call you search function on each row
-// function iterateRow(twoDArray){
-//     let output = [];
-//     for (let row = 0; row < twoDArray.length; row++) {
-//         output.push(twoDArray[row])
-//     }
-//     return output
-// }
-///
 
 function iterateColumns(twoDArray) {
     const rows = twoDArray.length;
@@ -74,11 +64,6 @@ function loopDiagonally(twoDArray) {
 
         output.push(items)
 
-        if (i !== diagonalLines) {
-            outputStr += items.join('') + " ";
-        } else {
-            outputStr += items.join('');
-        }
     }
 
     return output;
@@ -97,7 +82,8 @@ function findAllXmas(rowArr) {
     var ltr = findXmas(row);
     var rtl = findXmas(reverse(row));
     var occurs = [ltr, rtl];
-    return occurs
+    var output = occurs.filter((item) => item !== null)
+    return output
 }
 
 var allVariations = [];
@@ -113,9 +99,15 @@ diagonalVariations.forEach((row) => {allVariations.push(row)});
 reversedDiagonalVariations = loopDiagonally(reversedInput)
 reversedDiagonalVariations.forEach((row) => {allVariations.push(row)});
 
-test = [];
+var answerArr = [];
 // debugger;
 allVariations.forEach(
     (row) => {
-        test.push(findAllXmas(row))}
+        // debugger;
+        var res = findAllXmas(row);
+        if (res.length > 0) {
+            answerArr.push(res)}
+        }
 )
+
+console.log(answerArr.flat().length)
