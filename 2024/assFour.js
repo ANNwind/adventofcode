@@ -84,7 +84,7 @@ reversedInput = input.reverse()
 function iterateColumns(twoDArray) {
     const rows = twoDArray.length;
     const columns = twoDArray[0].length;
-    let output = [];
+    let output = []; // fix this
 
     for (let col = 0; col < columns; col++) {
         let items = [];
@@ -103,7 +103,7 @@ function loopDiagonally(twoDArray) {
     const diagonalLines = (length + length) - 1;
     let itemsInDiagonal = 0;
     const midPoint = Math.floor(diagonalLines / 2) + 1;
-    let output = "";
+    let output = [];
 
     for (let i = 1; i <= diagonalLines; i++) {
         let items = [];
@@ -135,4 +135,33 @@ function loopDiagonally(twoDArray) {
     return output;
 }
 
+function reverse(s){
+    return s.split("").reverse().join("");
+}
 
+function findXmas(s){
+    return s.match(/(XMAS)/g) // Do I need brackets?
+}
+
+function findAllXmas(rowArr) {
+    var row = rowArr.join("");
+    var ltr = findXmas(row);
+    var rtl = findXmas(reverse(row));
+    var occurs = [ltr, rtl];
+    return occurs
+}
+
+var allVariations = [];
+
+input.forEach((row) => {allVariations.push(row)}); 
+
+allColumnVariations = iterateColumns(input);
+allColumnVariations.forEach((row) => {allVariations.push(row)});
+
+diagonalVariations = loopDiagonally(input);
+diagonalVariations.forEach((row) => {allVariations.push(row)});
+
+reversedDiagonalVariations = loopDiagonally(reversedInput)
+reversedDiagonalVariations.forEach((row) => {allVariations.push(row)});
+
+console.log(allVariations)
