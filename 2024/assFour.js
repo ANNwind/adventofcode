@@ -109,19 +109,22 @@ input.pop()
 input = input.map((rowStr) => rowStr.split(""))
 
 function checkAroundMe(i,j){
-    debugger;
+    // debugger;
     // var yesSir = false
-    test1 = input[i-1][j-1] + 'A' + input[i+1][j+1] // this is good
-    test2 = input[i+1][j-1] + 'A' + input[i-1][j+1]
-    var ltr = ('MAS' === input[i-1][j-1] + 'A' + input[i+1][j+1]) ? true : false; // this is just 1 diag which should be checked both ways
-    var rtl = ('SAM' === input[i+1][j-1] + 'A' + input[i-1][j+1]) ? true : false;
-
+    // test1 = input[i-1][j-1] + 'A' + input[i+1][j+1] // this is good
+    // test2 = input[i+1][j-1] + 'A' + input[i-1][j+1]
+    try{var ltr = (input[i-1][j-1] + 'A' + input[i+1][j+1]).match(/MAS|SAM/g)?.length > 0;  
+        var rtl = (input[i+1][j-1] + 'A' + input[i-1][j+1]).match(/MAS|SAM/g)?.length > 0;
+    }catch(error){
+        debugger;
+        console.log(error)}
+    
     return ltr && rtl
 }
 
 count = 0
 for (i=0; i < input.length; i++) {
-    for (j=0; j < i; j++) {
+    for (j=0; j < i-1; j++) {
         if (input[i][j] !== 'A') {
             continue
         } else {
