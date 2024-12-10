@@ -123,7 +123,7 @@ function checkAroundMe(i,j){
 }
 
 count = 0
-for (i=0; i < input.length; i++) {
+for (i=0; i < input.length-1; i++) {
     for (j=0; j < i-1; j++) {
         if (input[i][j] !== 'A') {
             continue
