@@ -98,3 +98,67 @@ function process2DArray(twoDArray) {
 }
 
 process2DArray(input)
+
+// part 2
+
+// var input = document.querySelector("body > pre").innerText.split("\n");
+// debugger;
+input = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n");
+input.pop()
+
+input = input.map((rowStr) => rowStr.split(""))
+
+function loopDiagonally(twoDArray) {
+    const length = twoDArray.length;
+    const diagonalLines = (length + length) - 1;
+    let itemsInDiagonal = 0;
+    const midPoint = Math.floor(diagonalLines / 2) + 1;
+    let output = [];
+
+    for (let i = 1; i <= diagonalLines; i++) {
+        let items = [];
+        let rowIndex, columnIndex;
+
+        if (i <= midPoint) {
+            itemsInDiagonal++;
+            for (let j = 0; j < itemsInDiagonal; j++) {
+                rowIndex = (i - j) - 1;
+                columnIndex = j;
+                items.push(twoDArray[rowIndex][columnIndex]);
+            }
+        } else {
+            itemsInDiagonal--;
+            for (let j = 0; j < itemsInDiagonal; j++) {
+                rowIndex = (length - 1) - j;
+                columnIndex = (i - length) + j;
+                items.push(twoDArray[rowIndex][columnIndex]);
+            }
+        }
+
+        output.push(items);
+    }
+
+    return output;
+}
+
+function reverse(row) {
+    return row.split("").reverse().join("");
+}
+
+function countMasOccurrences(row) {
+    const matchesLTR = (row.match(/MAS/g) || []).length;
+    const matchesRTL = (reverse(row).match(/MAS/g) || []).length;
+    return matchesLTR + matchesRTL;
+}
+
+function process2DArrayv2() {
+    // Diagonals (Top-Left to Bottom-Right)
+    const diagonals = loopDiagonally(twoDArray);
+    count += diagonals.reduce((acc, diag) => acc + countMasOccurrences(diag.join("")), 0);
+
+    // Diagonals (Bottom-Left to Top-Right)
+    const reversedDiagonals = loopDiagonally(twoDArray.reverse());
+    count += reversedDiagonals.reduce((acc, diag) => acc + countMasOccurrences(diag.join("")), 0);
+
+    return count;
+}
