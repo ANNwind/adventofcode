@@ -27,15 +27,18 @@ for (i=0; i < rules.length; i++) {
     }
 }
 
-function getElementsAfter(originalArr, specifiedNumber) {
+function getElementsBeforeAndAfter(originalArr, specifiedNumber) {
     const index = originalArr.indexOf(specifiedNumber); // Find the index of the specified element
 
-    if (index === -1 || index === originalArr.length - 1) {
-        // If the element isn't found or it's the last element, return an empty array
-        return []; // Maybe return something else?
+    if (index === -1) {
+        // If the element isn't found, return two empty arrays
+        return [[], []];
     }
 
-    return originalArr.slice(index + 1); // Get everything after the specified index
+    var afterMe = originalArr.slice(index + 1); 
+    var beforeMe = originalArr.slice(0, index);
+
+    return [beforeMe, afterMe]; // Get everything after the specified index
 }
 
 
@@ -58,13 +61,15 @@ function addValidMidPosish(arr, obj, num) {
     // no return statement?
     debugger;
     var preceders = obj[num]; // precedingObj, maybe only need array?
+    // var succeeding = should probably have something like this?
 
     
     // All numbers that come after the variable num, should be inside the preceder array (others may exist as well)
     // We are not checking the cases that should not come through
-    var currentUpdates = getElementsAfter(arr, num);
-
-    if (isSubset(currentUpdates, preceders)) { // Check if currentUpdates are in preceders
+    var currentUpdates = getElementsBeforeAndAfter(arr, num)[1];
+    var pastUpdates = getElementsBeforeAndAfter(arr,num)[0];
+    
+    if (isSubset(currentUpdates, preceders) && !isSubset(pastUpdates, preceders)) { // Check if currentUpdates are in preceders
         var midPosish = getMidPosish(arr)
         ansArr.push(midPosish) // this should only be done when the whole array is checked (maybe outside this function?)
     }
