@@ -27,6 +27,18 @@ for (i=0; i < rules.length; i++) {
     }
 }
 
+function getElementsAfter(originalArr, specifiedNumber) {
+    const index = originalArr.indexOf(specifiedNumber); // Find the index of the specified element
+
+    if (index === -1 || index === originalArr.length - 1) {
+        // If the element isn't found or it's the last element, return an empty array
+        return []; // Maybe return something else?
+    }
+
+    return originalArr.slice(index + 1); // Get everything after the specified index
+}
+
+
 function isSubset(arr1, arr2) {
     return arr1.every(element => arr2.includes(element));
 }
@@ -47,12 +59,14 @@ function addValidMidPosish(arr, obj, num) {
     debugger;
     var preceders = obj[num]; // precedingObj, maybe only need array?
 
-    // Should check position of num! Below is only valid when num === arr[0]
-    var currentUpdates = arr.filter((arrNum) => arrNum !== num); // Get all updates chuck out the current num.
+    
+    // All numbers that come after the variable num, should be inside the preceder array (others may exist as well)
+    // We are not checking the cases that should not come through
+    var currentUpdates = getElementsAfter(arr, num);
 
     if (isSubset(currentUpdates, preceders)) { // Check if currentUpdates are in preceders
         var midPosish = getMidPosish(arr)
-        ansArr.push(midPosish)
+        ansArr.push(midPosish) // this should only be done when the whole array is checked (maybe outside this function?)
     }
     // are all currentUpdates minus current Num inside preceders
 
