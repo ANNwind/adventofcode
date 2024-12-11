@@ -14,9 +14,14 @@ var rules = rawInput.filter((row) => row.includes("|")).map((rule) => rule.split
 var updates = rawInput.filter((row) => row.includes(",")).map((rule) => rule.split(",").map(Number));
 
 
-// var checkPrecedence = {};
+var checkPrecedence = {};
 
-// for (i=0; i < rules.length; i++) {
-    
-// }
+// debugger;
+for (i=0; i < rules.length; i++) {
+    if(!Object.keys(checkPrecedence).map(Number).includes(rules[i][0])) { // Object.keys converts our keys back to strings...
+        checkPrecedence[rules[i][0]] = [rules[i][1]];
+    } else {
+        checkPrecedence[rules[i][0]].push(rules[i][1]);
+    }
+}
 
