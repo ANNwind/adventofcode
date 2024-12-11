@@ -10,6 +10,13 @@
  */
 
 var rawInput = document.querySelector("body > main > article > pre:nth-child(8) > code").innerText.split("\n"); // test input
-var rules = rawInput.filter((row) => row.includes("|"));
-var updates = rawInput.filter((row) => row.includes(","));
-updates
+var rules = rawInput.filter((row) => row.includes("|")).map((rule) => rule.split("|").map(Number));
+var updates = rawInput.filter((row) => row.includes(",")).map((rule) => rule.split(",").map(Number));
+
+
+// var checkPrecedence = {};
+
+// for (i=0; i < rules.length; i++) {
+    
+// }
+
