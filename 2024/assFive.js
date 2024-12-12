@@ -69,6 +69,8 @@ function addValidMidPosish(arr, obj, num) {
     var currentUpdates = getElementsBeforeAndAfter(arr, num)[1];
     var pastUpdates = getElementsBeforeAndAfter(arr,num)[0];
     
+    // pastUpdates can't be empty
+    // This only works correctly if you call this at the right time. Should do this.
     if (isSubset(currentUpdates, preceders) && !isSubset(pastUpdates, preceders)) { // Check if currentUpdates are in preceders
         var midPosish = getMidPosish(arr)
         ansArr.push(midPosish) // this should only be done when the whole array is checked (maybe outside this function?)
