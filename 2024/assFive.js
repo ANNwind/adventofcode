@@ -16,7 +16,7 @@ var rules = rawInput.filter((row) => row.includes("|")).map((rule) => rule.split
 var updates = rawInput.filter((row) => row.includes(",")).map((rule) => rule.split(",").map(Number));
 
 
-var preceding = {};
+var preceding = {}; // This are actually numbers that should come after the current
 
 // debugger;
 for (i=0; i < rules.length; i++) {
@@ -54,41 +54,47 @@ function getMidPosish(arr) {
 }
 
 
-function addValidMidPosish(arr, obj, num) {
-    // check the validity of the update number by comparing each next sibling (just count) if it is in the object
-    // if it is valid extract the middle number
-    // push it to global array
-    // no return statement?
-    debugger;
-    var preceders = obj[num]; // precedingObj, maybe only need array?
-    // var succeeding = should probably have something like this?
-
-    
-    // All numbers that come after the variable num, should be inside the preceder array (others may exist as well)
-    // We are not checking the cases that should not come through
-    var currentUpdates = getElementsBeforeAndAfter(arr, num)[1];
-    var pastUpdates = getElementsBeforeAndAfter(arr,num)[0];
-    
-    if (isSubset(currentUpdates, preceders) && !isSubset(pastUpdates, preceders)) { // Check if currentUpdates are in preceders
-        var midPosish = getMidPosish(arr)
-        ansArr.push(midPosish) // this should only be done when the whole array is checked (maybe outside this function?)
-    }
-    // are all currentUpdates minus current Num inside preceders
-
-    
-}
-
 var ansArr = [];
+var valid = [];
+var notValid = [];
 // Loop through updates array
 for (i=0; i < updates.length; i++) {
+    
     for (num=0; num < updates[i].length; num++) {
         if (typeof preceding[updates[i][num]] !== 'undefined') { // our update is in the object
-            // call Function that checks the validity of the updates
-            addValidMidPosish(updates[i], preceding, updates[i][num])
+            // debugger;
+            var updateRow = updates[i];
+            var currentNum = updates[i][num];
+            var numRules = preceding[updates[i][num]];
+
+            var updatesBeforeNum = getElementsBeforeAndAfter(updateRow, currentNum)[0]; // should check if length is 0
+            var updatesAfterNum = getElementsBeforeAndAfter(updateRow, currentNum)[1]; // should check if length is 0
+
+
+            if(isSubset(updatesAfterNum, numRules)) { //  && !isSubset(updatesBeforeNum, numRules), 
+                // Current number in current row is valid
+                valid.push(i) // Should push row AND item
+            } else {
+                // the current number is not specified to be placed before the rest
+                notValid.push(i)
+            }
+
         }
+    }
+}
+
+var uniqueValid = [...new Set(valid)];
+    
+for (i=0; i < uniqueValid.length; i++) {
+    if (!notValid.includes(i)) {
+    var midPosish = getMidPosish(updates[i])
+    ansArr.push(midPosish)
     }
 }
 
 console.log(ansArr)
 
 ansArr.reduce((acc, curr) => acc + curr)
+
+
+
