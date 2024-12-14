@@ -70,13 +70,32 @@ for (i=0; i < updates.length; i++) {
             var updatesBeforeNum = getElementsBeforeAndAfter(updateRow, currentNum)[0]; // should check if length is 0
             var updatesAfterNum = getElementsBeforeAndAfter(updateRow, currentNum)[1]; // should check if length is 0
 
-
-            if(isSubset(updatesAfterNum, numRules)) { //  && !isSubset(updatesBeforeNum, numRules), 
-                // Current number in current row is valid
-                valid.push(i) // Should push row AND item
+            if (updatesBeforeNum.length < 1) {
+                // We are at the start of the udates array
+                if(isSubset(updatesAfterNum, numRules)) { //  && !isSubset(updatesBeforeNum, numRules), 
+                    // Current number in current row is valid
+                    valid.push(i) // Should push row AND item
+                } else {
+                    // the current number is not specified to be placed before the rest
+                    notValid.push(i)
+                }
+            } else if (updatesAfterNum.length < 1) {
+                // We are at the end of the updates array
+                if(isSubset(updatesBeforeNum, numRules)) { //  && !isSubset(updatesBeforeNum, numRules), 
+                    // Current number in current row is valid
+                    valid.push(i) // Should push row AND item
+                } else {
+                    // the current number is not specified to be placed before the rest
+                    notValid.push(i)
+                }
             } else {
-                // the current number is not specified to be placed before the rest
-                notValid.push(i)
+                if(isSubset(updatesAfterNum, numRules) && isSubset(updatesBeforeNum, numRules)) { //  && !isSubset(updatesBeforeNum, numRules), 
+                    // Current number in current row is valid
+                    valid.push(i) // Should push row AND item
+                } else {
+                    // the current number is not specified to be placed before the rest
+                    notValid.push(i)
+                }
             }
 
         }
